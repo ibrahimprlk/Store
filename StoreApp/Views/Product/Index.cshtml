@@ -1,0 +1,11 @@
+﻿@model List<StoreApp.Models.Product>
+
+@foreach (StoreApp.Models.Product product in Model)
+{
+	<div>
+		<h3>@product.ProductName</h3>
+		<h4>@product.Price</h4>
+		<h4><a href="/product/get/@product.Id">Details</a></h4>
+		<hr />
+	</div>
+}
