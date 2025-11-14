@@ -1,13 +1,22 @@
 ﻿@model List<Product>
 
+<div class="row">
+	<div class="col-md-3">
+		@await Component.InvokeAsync("CategoriesMenu")
+	</div>
+	<div class="col-md-9">
+		<div class="row">
+			@foreach (Product product in Model)
+			{
+				<partial name="_ProductCard" model="@product"></partial>
+			}
+		</div>
+	</div>
+</div>
+
 @section Footer {
 	<div>Only For Index Product Footer</div>
 }
 
-<div class="row">
-	@foreach (Product product in Model)
-	{
-			<partial name="_ProductCard" model="@product"></partial>	
-	}
-</div>
+
 
