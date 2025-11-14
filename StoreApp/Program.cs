@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using StoreApp.Models;
+using Repositories.Contracts;
+using Repositories.EFCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,10 @@ builder.Services.AddDbContext<RepositoryContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration["ConnectionStrings:sqlConnection"]);
 });
+
+builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
+builder.Services.AddScoped<IProductRepository,ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 var app = builder.Build();
 
