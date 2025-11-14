@@ -3,5 +3,8 @@
 <div>
 	<h2>@Model.ProductName</h2>
 	<h3>@Model.Price</h3>
-	<h3><a href="/product">Products</a></h3>
+	<div class="btn-group">
+		<a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="fa-regular fa-house"></i>Home</a>
+		<a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index"><i class="fa-solid fa-list"></i>Products</a>
+	</div>
 </div>
