@@ -10,5 +10,6 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public String? CategoryName { get; set; }=String.Empty;
+        public ICollection<Product> Products { get; set; }
     }
 }

@@ -34,5 +34,9 @@ namespace Repositories.EFCore
             return FindByConditaion(p=>p.Id.Equals(id),trackChanges);
         }
 
+        public void UpdateOneProduct(Product entity)
+        {
+            Update(entity);
+        }
     }
 }
