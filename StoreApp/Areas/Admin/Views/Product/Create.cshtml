@@ -3,7 +3,7 @@
 <div class="text-center">
 	<div class="display-6">Create</div>
 </div>
-<form method="post" action="Create">
+<form method="post" action="Create" enctype="multipart/form-data">
 	<div class="text-bg-danger" asp-validation-summary="All"></div>
 
 	<div class="form-group my-3">
@@ -23,9 +23,20 @@
 	</div>
 
 	<div class="form-group my-3">
+		<label asp-for="Summary">Summary</label>
+		<input class="form-control" asp-for="Summary" />
+	</div>
+
+	<div class="form-group my-3">
 		<label asp-for="Price">Price</label>
 		<input class="form-control" asp-for="Price" />
 	</div>
+
+	<div class="form-group my-3">
+		<label asp-for="ImageUrl">Image</label>
+		<input class="form-control" name="file" type="file" asp-for="ImageUrl" />
+	</div>
+
 	<div class="form-group my-3">
 		<div class="btn-group">
 			<button class="btn btn-primary" type="submit">

@@ -36,10 +36,17 @@ namespace StoreApp.Areas.Admin.Controllers
         //}
 
         [HttpPost]
-        public IActionResult Create([FromForm] ProductDtoForInsertion productDto)
+        public async Task<IActionResult> Create([FromForm] ProductDtoForInsertion productDto, IFormFile file)
         {
             if (ModelState.IsValid) 
             {
+                string path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","images",file.FileName);
+
+                using(var stream=new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                productDto.ImageUrl = String.Concat("/images/",file.FileName);
                 _manager.ProductService.CreateProduct(productDto);
                 return RedirectToAction("Index");
             }
@@ -53,11 +60,20 @@ namespace StoreApp.Areas.Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Update(ProductDtoForUpdate product)
+        public async Task<IActionResult> Update(ProductDtoForUpdate productDto, IFormFile file)
         {
             if (ModelState.IsValid)
-            { 
-                _manager.ProductService.UpdateOneProduct(product);
+            {
+
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                productDto.ImageUrl = String.Concat("/images/", file.FileName);
+
+                _manager.ProductService.UpdateOneProduct(productDto);
                 return RedirectToAction("Index");
             }
             return View();
