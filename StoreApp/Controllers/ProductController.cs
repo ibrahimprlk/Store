@@ -25,5 +25,18 @@ namespace StoreApp.Controllers
             var model = _manager.ProductService.GetOneProduct(id, false);
             return View(model);
         }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add([FromForm] Product product)
+        {
+            var x=product;
+            _manager.ProductService.Add(product);
+            return RedirectToAction("Index");
+        }
     }
 }

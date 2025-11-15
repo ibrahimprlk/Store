@@ -14,6 +14,16 @@ namespace Repositories.EFCore
         {
         }
 
+        public void CreateOneProduct(Product product)
+        {
+            Create(product);
+        }
+
+        public void DeleteOneProduct(Product product)
+        {
+            Remove(product);
+        }
+
         public IQueryable<Product> GetAllProducts(bool trackChanges)
         {
             return FindAll(trackChanges);
