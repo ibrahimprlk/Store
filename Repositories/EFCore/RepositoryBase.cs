@@ -9,18 +9,14 @@ using Repositories.Contracts;
 
 namespace Repositories.EFCore
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class, new()
+    public abstract class RepositoryBase<T> : IRepositoryBase<T>
+    where T : class, new()
     {
         protected readonly RepositoryContext _context;
 
-        public RepositoryBase(RepositoryContext context)
+        protected RepositoryBase(RepositoryContext context)
         {
             _context = context;
-        }
-
-        public void Add(T entity)
-        {
-            _context.Add(entity);
         }
 
         public void Create(T entity)
@@ -30,12 +26,16 @@ namespace Repositories.EFCore
 
         public IQueryable<T> FindAll(bool trackChanges)
         {
-            return trackChanges ? _context.Set<T>():_context.Set<T>().AsNoTracking();
+            return trackChanges
+                ? _context.Set<T>()
+                : _context.Set<T>().AsNoTracking();
         }
 
-        public T? FindByConditaion(Expression<Func<T, bool>> expression, bool trackChanges)
+        public T? FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
         {
-            return trackChanges ? _context.Set<T>().Where(expression).SingleOrDefault() : _context.Set<T>().Where(expression).AsNoTracking().SingleOrDefault();
+            return trackChanges
+                ? _context.Set<T>().Where(expression).SingleOrDefault()
+                : _context.Set<T>().Where(expression).AsNoTracking().SingleOrDefault();
         }
 
         public void Remove(T entity)

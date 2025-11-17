@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Repositories.Migrations
+namespace StoreApp.Migrations
 {
     /// <inheritdoc />
     public partial class mig_1 : Migration
@@ -17,13 +17,13 @@ namespace Repositories.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,22 +50,23 @@ namespace Repositories.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    ShowCase = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id");
+                        principalColumn: "CategoryId");
                 });
 
             migrationBuilder.CreateTable(
@@ -90,13 +91,13 @@ namespace Repositories.Migrations
                         name: "FK_CartLine_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CategoryName" },
+                columns: new[] { "CategoryId", "CategoryName" },
                 values: new object[,]
                 {
                     { 1, "Book" },
@@ -105,16 +106,19 @@ namespace Repositories.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "ShowCase", "Summary" },
                 values: new object[,]
                 {
-                    { 1, 2, "/images/1.jpg", 17000m, "Computer", "" },
-                    { 2, 2, "/images/2.jpg", 1000m, "Keyboard", "" },
-                    { 3, 2, "/images/3.jpg", 500m, "Mouse", "" },
-                    { 4, 2, "/images/4.jpg", 7000m, "Monitor", "" },
-                    { 5, 2, "/images/5.jpg", 1500m, "Deck", "" },
-                    { 6, 1, "/images/6.jpg", 25m, "History", "" },
-                    { 7, 1, "/images/7.jpg", 45m, "Hamlet", "" }
+                    { 1, 2, "/images/1.jpg", 17000m, "Computer", false, "" },
+                    { 2, 2, "/images/2.jpg", 1000m, "Keyboard", false, "" },
+                    { 3, 2, "/images/3.jpg", 500m, "Mouse", false, "" },
+                    { 4, 2, "/images/4.jpg", 7000m, "Monitor", false, "" },
+                    { 5, 2, "/images/5.jpg", 1500m, "Deck", false, "" },
+                    { 6, 1, "/images/6.jpg", 25m, "History", false, "" },
+                    { 7, 1, "/images/7.jpg", 45m, "Hamlet", false, "" },
+                    { 8, 1, "/images/8.jpg", 1145m, "Xp-Pen", true, "" },
+                    { 9, 2, "/images/9.jpg", 4445m, "Galaxy FE", true, "" },
+                    { 10, 1, "/images/10.jpg", 545m, "Hp Mouse", true, "" }
                 });
 
             migrationBuilder.CreateIndex(

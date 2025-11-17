@@ -9,7 +9,7 @@ namespace Entities.Dtos
 {
     public record ProductDto
     {
-        public int Id { get; init; }
+        public int ProductId { get; init; }
 
         [Required(ErrorMessage = "ProductName is required.")]
         public String? ProductName { get; init; } = String.Empty;
@@ -18,7 +18,6 @@ namespace Entities.Dtos
         public decimal Price { get; init; }
         public String? Summary { get; init; } = String.Empty;
         public String? ImageUrl { get; set; }
-
         public int? CategoryId { get; init; }
 
     }

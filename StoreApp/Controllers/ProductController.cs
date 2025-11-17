@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.RequestParameters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
@@ -15,9 +16,9 @@ namespace StoreApp.Controllers
             _manager = manager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(ProductRequestParameters p)
         {
-            var products = _manager.ProductService.GetAllProducts(false).ToList();
+            var products = _manager.ProductService.GetAllProductsWithDetails(p);
             return View(products);
         }
         public IActionResult Get([FromRoute(Name ="id")]int id)
@@ -31,12 +32,5 @@ namespace StoreApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Add([FromForm] Product product)
-        {
-            var x=product;
-            _manager.ProductService.Add(product);
-            return RedirectToAction("Index");
-        }
     }
 }

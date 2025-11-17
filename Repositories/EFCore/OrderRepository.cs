@@ -27,7 +27,7 @@ namespace Repositories.EFCore
 
         public void Complete(int id)
         {
-            var order = FindByConditaion(o => o.OrderId.Equals(id), true);
+            var order = FindByCondition(o => o.OrderId.Equals(id), true);
             if (order is null)
                 throw new Exception("Order could not found!");
             order.Shipped = true;
@@ -35,7 +35,7 @@ namespace Repositories.EFCore
 
         public Order? GetOneOrder(int id)
         {
-            return FindByConditaion(o => o.OrderId.Equals(id), false);
+            return FindByCondition(o => o.OrderId.Equals(id), false);
         }
 
         public void SaveOrder(Order order)

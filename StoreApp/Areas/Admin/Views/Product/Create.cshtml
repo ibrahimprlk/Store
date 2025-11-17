@@ -11,7 +11,7 @@
 		<select class="form-control" asp-for="CategoryId">
 			@foreach (Category category in ViewBag.Categories)
 			{
-				<option value="@category.Id">@category.CategoryName</option>
+				<option value="@category.CategoryId">@category.CategoryName</option>
 			}
 		</select>
 	</div>

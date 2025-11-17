@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.EFCore;
 
 #nullable disable
 
-namespace Repositories.Migrations
+namespace StoreApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20251117100409_mig_1")]
+    partial class mig_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,29 +53,29 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Entities.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            CategoryId = 1,
                             CategoryName = "Book"
                         },
                         new
                         {
-                            Id = 2,
+                            CategoryId = 2,
                             CategoryName = "Electronic"
                         });
                 });
@@ -118,11 +121,11 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Entities.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
@@ -131,16 +134,20 @@ namespace Repositories.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("ShowCase")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
 
@@ -149,65 +156,102 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            ProductId = 1,
                             CategoryId = 2,
                             ImageUrl = "/images/1.jpg",
                             Price = 17000m,
                             ProductName = "Computer",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
                         {
-                            Id = 2,
+                            ProductId = 2,
                             CategoryId = 2,
                             ImageUrl = "/images/2.jpg",
                             Price = 1000m,
                             ProductName = "Keyboard",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
                         {
-                            Id = 3,
+                            ProductId = 3,
                             CategoryId = 2,
                             ImageUrl = "/images/3.jpg",
                             Price = 500m,
                             ProductName = "Mouse",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
                         {
-                            Id = 4,
+                            ProductId = 4,
                             CategoryId = 2,
                             ImageUrl = "/images/4.jpg",
                             Price = 7000m,
                             ProductName = "Monitor",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
                         {
-                            Id = 5,
+                            ProductId = 5,
                             CategoryId = 2,
                             ImageUrl = "/images/5.jpg",
                             Price = 1500m,
                             ProductName = "Deck",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
                         {
-                            Id = 6,
+                            ProductId = 6,
                             CategoryId = 1,
                             ImageUrl = "/images/6.jpg",
                             Price = 25m,
                             ProductName = "History",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
                         {
-                            Id = 7,
+                            ProductId = 7,
                             CategoryId = 1,
                             ImageUrl = "/images/7.jpg",
                             Price = 45m,
                             ProductName = "Hamlet",
+                            ShowCase = false,
+                            Summary = ""
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            CategoryId = 1,
+                            ImageUrl = "/images/8.jpg",
+                            Price = 1145m,
+                            ProductName = "Xp-Pen",
+                            ShowCase = true,
+                            Summary = ""
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            CategoryId = 2,
+                            ImageUrl = "/images/9.jpg",
+                            Price = 4445m,
+                            ProductName = "Galaxy FE",
+                            ShowCase = true,
+                            Summary = ""
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            CategoryId = 1,
+                            ImageUrl = "/images/10.jpg",
+                            Price = 545m,
+                            ProductName = "Hp Mouse",
+                            ShowCase = true,
                             Summary = ""
                         });
                 });
