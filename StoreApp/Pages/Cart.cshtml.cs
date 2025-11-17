@@ -25,11 +25,11 @@ namespace StoreApp.Pages
             // Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
 
-        public IActionResult OnPost(int Id, string returnUrl)
+        public IActionResult OnPost(int productId, string returnUrl)
         {
             Product? product = _manager
                 .ProductService
-                .GetOneProduct(Id, false);
+                .GetOneProduct(productId, false);
 
             if (product is not null)
             {

@@ -30,7 +30,8 @@ namespace Repositories.EFCore
                 .Products
                 .FilteredByCategoryId(p.CategoryId)
                 .FilteredBySearchTerm(p.SearchTerm)
-                .FilteredByPrice(p.MinPrice, p.MaxPrice, p.IsValidPrice);
+                .FilteredByPrice(p.MinPrice, p.MaxPrice, p.IsValidPrice)
+                .ToPaginate(p.PageNumber, p.PageSize);
 
             //var a= p.CategoryId is null ? _context.Products.Include(prd => prd.Category) : _context.Products.Include(prd => prd.Category).Where(prd => prd.CategoryId.Equals(prd.CategoryId));
             //return a;
