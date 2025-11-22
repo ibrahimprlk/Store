@@ -10,7 +10,7 @@ namespace StoreApp.Controllers
 {
     public class ProductController : Controller
     {
-       private readonly IServiceManager _manager;
+        private readonly IServiceManager _manager;
 
         public ProductController(IServiceManager manager)
         {
@@ -32,16 +32,12 @@ namespace StoreApp.Controllers
                 Pagination = pagination
             });
         }
-        public IActionResult Get([FromRoute(Name ="id")]int id)
+
+        public IActionResult Get([FromRoute(Name = "id")] int id)
         {
             var model = _manager.ProductService.GetOneProduct(id, false);
+            ViewData["Title"] = model?.ProductName;
             return View(model);
         }
-
-        public IActionResult Add()
-        {
-            return View();
-        }
-
     }
 }
